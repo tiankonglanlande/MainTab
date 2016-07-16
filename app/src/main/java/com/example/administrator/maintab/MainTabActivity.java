@@ -67,7 +67,9 @@ public class MainTabActivity extends AppCompatActivity implements ViewPager.OnPa
     }
 
     private void intView() {
+        //初始化顶部图片按钮集合
         ivList=new ArrayList<ImageButton>();
+        //初始fragment集合
         mainTabFgList=new ArrayList<Fragment>();
         mViewPager= (ViewPager) findViewById(R.id.container);
         for (int i=0;i<btIds.length;i++){
@@ -85,7 +87,9 @@ public class MainTabActivity extends AppCompatActivity implements ViewPager.OnPa
         pagetAdapter=new PagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(pagetAdapter);
         mViewPager.addOnPageChangeListener(this);
+        //重置所有项为0.5
         resetTabAphal();
+        //选中项透明度为1
         selectTabAphal(0);
     }
 
