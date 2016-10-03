@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <drawable name="transparent">#00000000</drawable>
+
+    <color name="common_white">#ffffff</color>
+    <color name="listview_gray">#cccccc</color>
+    <color name="view_backgroud">#f1f1f1</color>
+    <color name="back_darkgray">#f7f7f7</color>
+    <color name="divider_line">#d5d7dc</color>
+
+</resources>

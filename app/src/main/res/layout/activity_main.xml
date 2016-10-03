@@ -13,57 +13,67 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:minHeight="60dp"
-        android:background="@color/blue"
-        android:gravity="center"
-        >
+
+        <LinearLayout
+            android:id="@+id/vpContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+            <android.support.v4.view.ViewPager
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:minHeight="@dimen/nav_height"
+            android:background="@color/blue"
+            android:gravity="center"
+            >
 
 
-        <ImageButton
-            android:text="Button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/bt"
-            android:layout_weight="1"
-            android:src="@drawable/tab_home_main"
-            android:background="@drawable/home_tab_selector"
-            />
-        <ImageButton
-            android:text="Button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/bt2"
-            android:layout_weight="1"
-            android:src="@drawable/tab_home_find"
-            android:background="@drawable/home_tab_selector"
-            />
-        <ImageButton
-            android:text="Button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/bt3"
-            android:layout_weight="1"
-            android:src="@drawable/tab_home_notifications"
-            android:background="@drawable/home_tab_selector"
-            />
-        <ImageButton
-            android:text="Button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/bt4"
-            android:layout_weight="1"
-            android:src="@drawable/tab_home_profile"
-            android:background="@drawable/home_tab_selector"
-            />
-    </LinearLayout>
-    <android.support.v4.view.ViewPager
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            <ImageButton
+                android:text="Button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/bt"
+                android:layout_weight="1"
+                android:src="@drawable/tab_home_main"
+                android:background="@drawable/home_tab_selector"
+                />
+            <ImageButton
+                android:text="Button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/bt2"
+                android:layout_weight="1"
+                android:src="@drawable/tab_home_find"
+                android:background="@drawable/home_tab_selector"
+                />
+            <ImageButton
+                android:text="Button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/bt3"
+                android:layout_weight="1"
+                android:src="@drawable/tab_home_notifications"
+                android:background="@drawable/home_tab_selector"
+                />
+            <ImageButton
+                android:text="Button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/bt4"
+                android:layout_weight="1"
+                android:src="@drawable/tab_home_profile"
+                android:background="@drawable/home_tab_selector"
+                />
+        </LinearLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

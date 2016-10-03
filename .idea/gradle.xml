@@ -5,11 +5,12 @@
       <GradleProjectSettings>
         <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="F:\Android\android-studio-2.1preview5\android-studio2.2Preview5\gradle\gradle-2.10" />
+        <option name="gradleHome" value="F:\Android\android-studio-2.1preview5\android-studio2.2RC2\gradle\gradle-2.14.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/hideTitleDemo" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -79,15 +79,4 @@ public class OneFragment extends Fragment {
         }
     }
 
-    public static class MyFragment extends Fragment{
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
-            View view = inflater.inflate(R.layout.fragment_inner, container, false);
-            return view;
-        }
-    }
-
-
 }

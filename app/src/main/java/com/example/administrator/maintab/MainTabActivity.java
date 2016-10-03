@@ -17,12 +17,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -33,13 +38,21 @@ public class MainTabActivity extends AppCompatActivity implements ViewPager.OnPa
     ArrayList<ImageButton> ivList;
     ArrayList<Fragment> mainTabFgList;
     private PagerAdapter pagetAdapter;
+    private LinearLayout nav;//底部导航布局
+    private LinearLayout vpContainer;
+
+    //加入上滑隐藏底部导航nav下滑显示nav
+    private boolean mIsNavHide=false;
+    private boolean mIsAnim=false;
+    private float lastX=0;
+    private float lastY=0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        intView();
+        initView();
         setListener();
     }
     private void setListener() {
@@ -66,7 +79,10 @@ public class MainTabActivity extends AppCompatActivity implements ViewPager.OnPa
         }
     }
 
-    private void intView() {
+    private void initView() {
+        //底部布局
+        nav= (LinearLayout) findViewById(R.id.nav);
+        vpContainer=(LinearLayout)findViewById(R.id.vpContainer);
         //初始化顶部图片按钮集合
         ivList=new ArrayList<ImageButton>();
         //初始fragment集合
@@ -146,6 +162,88 @@ public class MainTabActivity extends AppCompatActivity implements ViewPager.OnPa
         public int getCount() {
             return mainTabFgList.size();
         }
+    }
+
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        super.dispatchTouchEvent(ev);
+        if(mIsAnim){
+            return false;
+        }
+        final int action=ev.getAction();
+        float x=ev.getX();
+        float y=ev.getY();
+        switch (action){
+            case MotionEvent.ACTION_DOWN:
+                lastX=x;
+                lastY=y;
+                return false;
+            case MotionEvent.ACTION_MOVE:
+                float dx=Math.abs(x-lastX);
+                float dy=Math.abs(y-lastY);
+                boolean down=y>lastY?true:false;
+                lastX=x;
+                lastY=y;
+                if (dx<8&&dy>8&&!mIsNavHide&&!down){
+                    Animation anim= AnimationUtils.loadAnimation(MainTabActivity.this,R.anim.push_top_in);
+                    anim.setAnimationListener(myAnimatListener());
+                    nav.startAnimation(anim);
+                }else if (dx<8&&dy>8&&mIsNavHide&&down){
+                    Animation anim= AnimationUtils.loadAnimation(MainTabActivity.this,R.anim.push_top_out);
+                    anim.setAnimationListener(myAnimatListener());
+                    nav.startAnimation(anim);
+                }else{
+                    return false;
+                }
+                mIsNavHide=!mIsNavHide;
+                mIsAnim=true;
+            default:
+                return false;
+        }
+    }
+
+    private Animation.AnimationListener myAnimatListener() {
+        return new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                if(mIsNavHide){
+                    LinearLayout.LayoutParams lp= (LinearLayout.LayoutParams) vpContainer.getLayoutParams();
+                    lp.setMargins(0,0,0,0);
+                    vpContainer.setLayoutParams(lp);
+                }else{
+                    LinearLayout.LayoutParams lp= (LinearLayout.LayoutParams) nav.getLayoutParams();
+                    lp.setMargins(0,-getResources().getDimensionPixelSize(R.dimen.nav_height),0,0);
+                    nav.setLayoutParams(lp);
+
+                    LinearLayout.LayoutParams lp2= (LinearLayout.LayoutParams) vpContainer.getLayoutParams();
+                    lp2.setMargins(0,0,0,0);
+                    vpContainer.setLayoutParams(lp2);
+
+                }
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (mIsNavHide){
+                    nav.setVisibility(View.GONE);
+                }else {
+                    nav.setVisibility(View.VISIBLE);
+                }
+                mIsAnim=false;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        };
+    }
+
+    //向子界面提供隐藏nav和显示nav导航的方法
+    public void toggleNav(){
+
     }
 
 }
